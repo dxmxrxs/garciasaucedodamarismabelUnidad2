@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Página de Inicio 🧳</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', cursive;
+    }
+
+    body {
+      padding-top: 100px; /* espacio para que las cards no se peguen al header */
+      padding-bottom: 0;
+      background: rgb(212, 223, 233);
+      color: #142a31;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #142a31;
+      color: #75d3ce;
+      z-index: 999;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-container img {
+      height: 60px;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #75d3ce;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #4a949b;
+    }
+
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .card {
+      position: relative;
+      width: 300px;
+      height: 350px;
+    }
+
+    .card .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.5s;
+    }
+
+    .card .front {
+      transform: perspective(600px) rotateY(0deg);
+      box-shadow: 0 5px 10px #000;
+    }
+
+    .card .front img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card .front h3 {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.4);
+      text-align: center;
+    }
+
+    .card .back {
+      transform: perspective(600px) rotateY(180deg);
+      background: rgb(3, 35, 54);
+      padding: 15px;
+      color: #f3f3f3;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      box-shadow: 0 5px 10px #000;
+    }
+
+    .card .back .link {
+      border-top: solid 1px #f3f3f3;
+      height: 50px;
+      line-height: 50px;
+    }
+
+    .card .back .link a {
+      color: #f3f3f3;
+      text-decoration: none;
+    }
+
+    .card .back h3 {
+      font-size: 30px;
+      margin-top: 20px;
+      letter-spacing: 2px;
+    }
+
+    .card .back p {
+      letter-spacing: 1px;
+    }
+
+    .card:hover .front {
+      transform: perspective(600px) rotateY(180deg);
+    }
+
+    .card:hover .back {
+      transform: perspective(600px) rotateY(360deg);
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      border: 2px solid #75d3ce;
+    }
+
+    .benefits-section {
+  max-width: 900px;
+  margin: 40px auto 60px;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(20, 42, 49, 0.15);
+  background: #fff;
+  color: #142a31;
+  font-family: 'Comic Sans MS', cursive;
+  text-align: center;
+}
+
+.benefits-section h2 {
+  color: #4a949b;
+  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.benefits-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.benefit-card {
+  background: #e8f0f4;
+  border-radius: 10px;
+  padding: 20px 15px;
+  flex: 1 1 200px;
+  max-width: 220px;
+  box-shadow: 0 4px 10px rgba(20, 42, 49, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(74, 148, 155, 0.5);
+}
+
+.benefit-card svg {
+  margin-bottom: 12px;
+}
+
+.benefit-card h3 {
+  margin-bottom: 12px;
+  color: #75d3ce;
+  font-weight: 700;
+}
+
+.benefit-card p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #142a31dd;
+}
+
+.footer {
+  background-color: #142a31;
+  color: #75d3ce;
+  text-align: center;
+  padding: 15px 20px;
+  font-family: 'Comic Sans MS', cursive;
+  position: relative; 
+  width: 100%;
+  bottom: 0;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+
+.nav-button {
+  background: none;
+  border: 2px solid #75d3ce;
+  color: #75d3ce;
+  padding: 8px 15px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #4a949b;
+  color: white;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <a href="index.html">
+        <img src="img/c74cca7b-f234-464d-8f85-2fef10ce3a92.jpg" alt="Logo Florería Chiquita" />
+      </a>
+    </div>
+    <nav>
+      <ul style="display: flex; align-items: center; gap: 15px; list-style: none;">
+          <li>
+        <form action="index.html" method="GET" style="margin: 0;">
+          <button class="nav-button">Inicio</button>
+        </form>
+      </li>
+      <li>
+        <form action="registro.php" method="POST" style="margin: 0;">
+          <button type="submit" class="nav-button">Registrarse</button>
+        </form>
+      </li>
+      <li>
+        <form action="login.php" method="POST" style="margin: 0;">
+          <button type="submit" class="nav-button">Iniciar Sesión</button>
+        </form>
+      </li>
+      <li>
+        <form action="contactanos.php" method="POST" style="margin: 0;">
+          <button type="submit" class="nav-button">Contacto</button>
+        </form>
+      </li>
+      <li>
+        <form action="recuperar.php" method="POST" style="margin: 0;">
+          <button type="submit" class="nav-button">Recuperar contraseña</button>
+        </form>
+      </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="cards-container">
+    <div class="card">
+      <div class="face front">
+        <img src="img/img1.jpeg" alt="Imagen de Japón">
+        <h3>Japan</h3>
+      </div>
+      <div class="face back">
+        <h3>Japan</h3>
+        <p>Un país donde la tradición y la tecnología conviven. Descubre templos antiguos, cerezos en flor y trenes bala. Tokio, Kioto y el Monte Fuji te esperan.</p>
+        <div class="link">
+          <a href="registro.php">Detalles</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="face front">
+        <img src="img/img2.jpeg" alt="Imagen de España">
+        <h3>Spain</h3>
+      </div>
+      <div class="face back">
+        <h3>España</h3>
+        <p>Sol, arte y sabor. Desde las playas de Barcelona hasta la historia de Granada. Vive el flamenco, la paella y la pasión española en cada rincón.</p>
+      <div class="link">
+          <a href="registro.php">Detalles</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="face front">
+        <img src="img/img3.jpeg" alt="Imagen de Perú">
+        <h3>Perú</h3>
+      </div>
+      <div class="face back">
+        <h3>Perú</h3>
+        <p>La cuna del Imperio Inca. Explora Machu Picchu, la gastronomía de Lima y los misterios de Nazca. Un país lleno de cultura, color y aventura.</p>
+        <div class="link">
+          <a href="registro.php">Detalles</a>
+        </div>
+      </div>
+    </div>
+    <div class="cards-container">
+
+  <div class="card">
+    <div class="face front">
+      <img src="img/roma.jpg" alt="Imagen de Roma" />
+      <h3>Roma</h3>
+    </div>
+    <div class="face back">
+      <h3>Roma</h3>
+      <p>La Ciudad Eterna, cuna del Imperio Romano. Camina entre ruinas antiguas, visita el Coliseo y lanza una moneda en la Fontana di Trevi.</p>
+      <div class="link"><a href="registro.php">Detalles</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="face front">
+      <img src="img/corea.jpg" alt="Imagen de Corea del Sur" />
+      <h3>Corea del Sur</h3>
+    </div>
+    <div class="face back">
+      <h3>Corea del Sur</h3>
+      <p>Donde lo moderno y lo ancestral se unen. Descubre palacios tradicionales, K-pop, tecnología y la vibrante vida en Seúl.</p>
+      <div class="link"><a href="registro.php">Detalles</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="face front">
+      <img src="img/paris.jpg" alt="Imagen de Francia" />
+      <h3>Francia</h3>
+    </div>
+    <div class="face back">
+      <h3>Francia</h3>
+      <p>Romanticismo, arte y elegancia. París y su Torre Eiffel, los campos de lavanda de la Provenza y la exquisita repostería francesa te esperan.</p>
+      <div class="link"><a href="registro.php">Detalles</a></div>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card">
+    <div class="face front">
+      <img src="img/mexico.jpg" alt="Imagen de México" />
+      <h3>México</h3>
+    </div>
+    <div class="face back">
+      <h3>México</h3>
+      <p>Un país lleno de vida, sabor y tradición. Desde las playas de Cancún hasta las pirámides de Teotihuacán y la cultura del Día de Muertos.</p>
+      <div class="link"><a href="registro.php">Detalles</a></div>
+    </div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="card">
+    <div class="face front">
+      <img src="img/inglaterra.jpg" alt="Imagen de Inglaterra" />
+      <h3>Inglaterra</h3>
+    </div>
+    <div class="face back">
+      <h3>Inglaterra</h3>
+      <p>Realeza, historia y té. Londres, el Big Ben, castillos medievales y la literatura de Shakespeare hacen de Inglaterra un destino fascinante.</p>
+      <div class="link"><a href="registro.php">Detalles</a></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="face front">
+      <img src="img/india.jpg" alt="Imagen de India" />
+      <h3>India</h3>
+    </div>
+    <div class="face back">
+      <h3>India</h3>
+      <p>Espiritualidad, colores y sabores únicos. Visita el Taj Mahal, explora templos milenarios y prueba la variada y picante comida india.</p>
+      <div class="link"><a href="registro.php">Detalles</a></div>
+    </div>
+  </div>
+</div>
+  </div>
+<section class="benefits-section">
+  <h2>¿Por qué elegirnos?</h2>
+  <div class="benefits-list">
+    <div class="benefit-card">
+      <!-- Ícono SVG experiencia -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#75d3ce" viewBox="0 0 24 24" width="48" height="48">
+        <path d="M12 2a7 7 0 0 1 7 7c0 2.333-1.167 4.667-3 6.001V18a1 1 0 0 1-2 0v-2.999A6.978 6.978 0 0 1 5 9a7 7 0 0 1 7-7zm0 2a5 5 0 0 0-5 5c0 1.667 1 3 2.5 3.75V16h5v-3.25A4.978 4.978 0 0 0 17 9a5 5 0 0 0-5-5z"/>
+      </svg>
+      <h3>Experiencia</h3>
+      <p>Más de 10 años creando viajes inolvidables para ti y tu familia.</p>
+    </div>
+
+    <div class="benefit-card">
+      <!-- Ícono SVG confianza -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#75d3ce" viewBox="0 0 24 24" width="48" height="48">
+        <path d="M12 1C7.031 1 3 5.032 3 10c0 5.066 4.666 11.667 8.277 12.859.16.06.34.06.5 0C16.334 21.667 21 15.067 21 10c0-4.968-4.03-9-9-9zm0 2a7 7 0 0 1 7 7c0 3.87-3.133 8.323-7 9.933C8.132 18.323 5 13.87 5 10a7 7 0 0 1 7-7z"/>
+      </svg>
+      <h3>Confianza</h3>
+      <p>Clientes satisfechos que nos respaldan con su fidelidad.</p>
+    </div>
+
+    <div class="benefit-card">
+      <!-- Ícono SVG precios -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#75d3ce" viewBox="0 0 24 24" width="48" height="48">
+        <path d="M12 1L7 5v14l5 4 5-4V5l-5-4zm0 3l3 3-3 3-3-3 3-3zm-4 11v-2h8v2H8zm0 3v-2h8v2H8z"/>
+      </svg>
+      <h3>Precios Bajos</h3>
+      <p>Las mejores ofertas para que puedas viajar más y gastar menos.</p>
+    </div>
+
+    <div class="benefit-card">
+      <!-- Ícono SVG atención -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#75d3ce" viewBox="0 0 24 24" width="48" height="48">
+        <path d="M12 2a10 10 0 0 0-7 17.25v2.25h14v-2.25A10 10 0 0 0 12 2zm1 11h-2v-2h2v2zm0-4h-2V7h2v2z"/>
+      </svg>
+      <h3>Atención Personalizada</h3>
+      <p>Estamos contigo para resolver todas tus dudas y planear el viaje perfecto.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>© 2025 Viajes Chiquita. Todos los derechos reservados.</p>
+    <p>Contacto: contacto@viajeschiquita.com | Tel: +52 55 1234 5678</p>
+  </div>
+</footer>
+
+</body>
+</html>
